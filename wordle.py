@@ -1,6 +1,7 @@
 import random
 from colorama import Fore
 import colorama
+import os
 
 def play_game():
     lines = []
@@ -41,6 +42,8 @@ def play_game():
 
 def play_game_2():
     lines = []
+    guess_list = []
+    colors = []
     with open("/Users/mulla-2243/Documents/untitled folder/wordle/words.txt") as f:
         lines = f.readlines()
     word = random.choice(lines).strip()
@@ -52,7 +55,7 @@ def play_game_2():
         color_list = [Fore.RED]*5
         guess = input()
         if guess+"\n" not in lines:
-            print("Not a valid word")
+            set_display(guess_list,colors, False)
             continue
         lifes = lifes - 1
         guess_copy = guess
@@ -71,10 +74,12 @@ def play_game_2():
                 word_copy = string_replacer(word_copy, word_copy.index(guess_copy[i]))
                 guess_copy = string_replacer(guess_copy, i)
                 color_list[i] = Fore.YELLOW
-        for i in range(5):
-            print(color_list[i], f"{guess[i]}", end="")
+        # for i in range(5):
+        #     print(color_list[i], f"{guess[i]}", end="")
         else:
-            print()
+            guess_list.append(guess)
+            colors.append(color_list)
+            set_display(guess_list, colors)
         if guess == word:
             print("Congrats!!!")
             break
@@ -87,6 +92,18 @@ def string_replacer(string,index):
     l[index] = "0"
     str1 = ""
     return str1.join(l)
+
+def set_display(guess_list, colors,isValid=True):
+    os.system('clear')
+    if not isValid:
+        print(" Not a valid word")
+    for i in range(len(guess_list)):
+        guess = guess_list[i]
+        color_list = colors[i]
+        for i in range(5):
+            print(color_list[i],f"{guess[i]}",end="")
+        else:
+            print()
     
 play_game_2()
 
