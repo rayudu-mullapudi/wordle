@@ -21,8 +21,6 @@ def play_game():
             g = guess[i]
             w = word[i]
             clr = Fore.LIGHTBLACK_EX
-            w_cnt = word.count(g)
-            g_cnt = guess.count(g)
             if g == w:
                 clr = Fore.GREEN
             elif g in word:
@@ -47,7 +45,6 @@ def play_game_2():
         lines = f.readlines()
     word = random.choice(lines).strip()
     # word = "sorry"
-    print(lines[5758-1])
     guess = ""
     lifes = 6
     print("Guess the word : ")
@@ -66,7 +63,6 @@ def play_game_2():
                 # guess_copy = guess_copy.replace(guess_copy[i], "0", 1)
                 guess_copy = string_replacer(guess_copy, i)
                 word_copy = string_replacer(word_copy, i)
-                print(f"{word_copy}   {guess_copy}")
                 color_list[i] = Fore.GREEN
         for i in range(5):
             if guess_copy[i] != "0" and guess_copy[i] in word_copy:
@@ -74,7 +70,6 @@ def play_game_2():
                 # guess_copy = guess_copy.replace(guess_copy[i],"0", 1)
                 word_copy = string_replacer(word_copy, word_copy.index(guess_copy[i]))
                 guess_copy = string_replacer(guess_copy, i)
-                print(f"{word_copy}   {guess_copy}")
                 color_list[i] = Fore.YELLOW
         for i in range(5):
             print(color_list[i], f"{guess[i]}", end="")
